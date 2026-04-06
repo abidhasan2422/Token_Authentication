@@ -10,7 +10,8 @@ class LCStudentAPI(GenericAPIView,ListModelMixin,CreateModelMixin):
     queryset= Student.objects.all()
     serializer_class = StudentSerializer
     authentication_classes=[TokenAuthentication]
-    permission_classes=[IsAuthenticated]
+    # permission_classes=[IsAuthenticated]
+    permission_classes=[IsAuthenticatedOrReadOnly] #user see data without login
     def get(self,request,*args, **kwargs):
         return self.list(request, *args,**kwargs)
     def post(self,request,*args,**kwargs):
@@ -20,7 +21,7 @@ class UDRStudentAPI(GenericAPIView,UpdateModelMixin,RetrieveModelMixin,DestroyMo
      queryset = Student.objects.all()
      serializer_class= StudentSerializer
      authentication_classes=[TokenAuthentication]
-     permission_classes=[]
+     permission_classes=[TokenAuthentication]
 
      def get(self,request,*args, **kwargs):
          return self.retrieve(request,*args, **kwargs)
